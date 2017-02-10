@@ -1,0 +1,22 @@
+<!--<md-content>
+    <md-virtual-repeat-container>-->
+        <!--<div class="listing" ng-repeat="loc in locations" md-on-demand>
+            <img src="http://lorempixel.com/200/200/city/random" alt="placeholder">
+            <h2>ID# {{ loc.id.value }}</h2>
+            <h2>Address:<br/> {{ loc.location.street }}<br/>{{ loc.location.city }} {{ loc.location.state }}, {{ loc.location.postcode }}</h2>
+            <p>date: {{ loc.registered | date:'MMM/dd/yyyy' }}</p>
+            <p>Zoning: B2</p>
+            <p>Contact: {{ loc.name.first }} {{ loc.name.last }}</br>
+                Phone: {{ loc.cell }} </br>
+                Email: {{ loc.email }} </p>
+            <p>tax value: $2.00</p>
+        </div>-->
+    <!--</md-virtual-repeat-container>
+</md-content>-->
+
+
+<section ng-repeat="loc in locations"> 
+    <p>{{ loc }}</p>  
+    <img src="http://lorempixel.com/200/200/city/random" alt="placeholder">
+
+</section>
