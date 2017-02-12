@@ -1,2 +1,12 @@
 .listing {
-  border: 1px black solid; }
+  border: 1px black solid;
+  padding: 1%;
+  margin: 5px; }
+  .listing .info {
+    display: inline-block;
+    padding-left: 10px;
+    margin: auto 0;
+    vertical-align: top; }
+
+#map {
+  height: 100%; }
