@@ -27,6 +27,7 @@ const app = angular.module('PropData', ['ngMaterial', 'ui.router']);
     // services loop
     const services = [
         require('./services/listings'),
+        require('./services/map'),
     ];
     for (let i = 0; i < services.length; i++) {
         app.factory(services[i].name, services[i].func)
@@ -39,8 +40,11 @@ const app = angular.module('PropData', ['ngMaterial', 'ui.router']);
         }
     });
 
-
-
+//Google maps
+// angular.module('appMaps', ['uiGmapgoogle-maps'])
+//     .controller('mainCtrl', function($scope) {
+//         $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+//     });
 
     // left in from starter pack. delete if not needed
 // });
@@ -48,8 +52,19 @@ window.addEventListener('load', function () {
     console.log('ready to rock');
 });
 
+// google maps stuff
+{/*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX_XiOTs0b_rxPCETMAwBXH9ORBYq3VCQ&callback=initMap"
+    async defer></script> 
 
-},{"./components/listings":2,"./components/map":3,"./controllers/listings":4,"./controllers/map":5,"./routers":6,"./services/listings":7}],2:[function(require,module,exports){
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }*/}
+
+
+},{"./components/listings":2,"./components/map":3,"./controllers/listings":4,"./controllers/map":5,"./routers":6,"./services/listings":7,"./services/map":8}],2:[function(require,module,exports){
 module.exports = {
     name: 'listings',
     object: {
@@ -82,19 +97,33 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 module.exports = {
     name: 'MapController',
-    func: function ($scope) {
+    func: function ($scope, MapService) {
         console.log('map controller');
-        $scope.images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-        $scope.loadMore = function () {
-            var last = $scope.images[$scope.images.length - 1];
-            for (var i = 1; i <= 10; i++) {
-                $scope.images.push(last + i);
-            }
+        $scope.locate = () => {
+            console.log('scope locate was clicked, activated in map controller');
+            MapService.locate();
         }
     }
 
 };
+
+
+
+// (function(window, google) {
+
+//     // map options
+//     let options = {
+//         center: {
+//             lat: 37.791350, // lat and long for san fran. Change later
+//             lng: -122.435883,
+//     },
+//     zoom:10,
+// },
+//     element = document.getElementById('#map')
+//     // map
+//     map = new google.maps.Map(element, options)
+
+// }(window, google));
 },{}],6:[function(require,module,exports){
 module.exports = [
     {
@@ -114,7 +143,6 @@ module.exports = {
     name: 'ListingsService',
     func:($http) => {
         const locations = [];
-        const names = [];
         $http.get('https://still-retreat-79338.herokuapp.com/address.json')
         .then(function (response) {
             angular.copy(response.data, locations);
@@ -123,8 +151,20 @@ module.exports = {
         return {
             getLoc: () => {
                 console.log(locations);
-                //console.log(names);
                 return locations;
+            }
+        }
+    },
+};
+},{}],8:[function(require,module,exports){
+module.exports = {
+    name: 'MapService', 
+    func:  () => {
+    
+        return {
+            locate: () => {
+                console.log('my map was clicked');
+               return mymap;
             }
         }
     },

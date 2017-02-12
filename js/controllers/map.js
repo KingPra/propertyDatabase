@@ -1,15 +1,29 @@
 module.exports = {
     name: 'MapController',
-    func: function ($scope) {
+    func: function ($scope, MapService) {
         console.log('map controller');
-        $scope.images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-        $scope.loadMore = function () {
-            var last = $scope.images[$scope.images.length - 1];
-            for (var i = 1; i <= 10; i++) {
-                $scope.images.push(last + i);
-            }
+        $scope.locate = () => {
+            console.log('scope locate was clicked, activated in map controller');
+            MapService.locate();
         }
     }
 
 };
+
+
+
+// (function(window, google) {
+
+//     // map options
+//     let options = {
+//         center: {
+//             lat: 37.791350, // lat and long for san fran. Change later
+//             lng: -122.435883,
+//     },
+//     zoom:10,
+// },
+//     element = document.getElementById('#map')
+//     // map
+//     map = new google.maps.Map(element, options)
+
+// }(window, google));

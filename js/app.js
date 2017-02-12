@@ -26,6 +26,7 @@ const app = angular.module('PropData', ['ngMaterial', 'ui.router']);
     // services loop
     const services = [
         require('./services/listings'),
+        require('./services/map'),
     ];
     for (let i = 0; i < services.length; i++) {
         app.factory(services[i].name, services[i].func)
@@ -38,12 +39,26 @@ const app = angular.module('PropData', ['ngMaterial', 'ui.router']);
         }
     });
 
-
-
+//Google maps
+// angular.module('appMaps', ['uiGmapgoogle-maps'])
+//     .controller('mainCtrl', function($scope) {
+//         $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+//     });
 
     // left in from starter pack. delete if not needed
 // });
 window.addEventListener('load', function () {
     console.log('ready to rock');
 });
+
+// google maps stuff
+{/*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX_XiOTs0b_rxPCETMAwBXH9ORBYq3VCQ&callback=initMap"
+    async defer></script> 
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }*/}
 
