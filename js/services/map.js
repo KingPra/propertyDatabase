@@ -5,7 +5,7 @@ module.exports = {
         return {
             locate: () => {
                 console.log('my map was clicked');
-               return mymap;
+               //return mymap;
             }
         }
     },

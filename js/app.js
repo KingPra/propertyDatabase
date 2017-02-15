@@ -1,4 +1,8 @@
-const app = angular.module('PropData', ['ngMaterial', 'ui.router']);
+const app = angular.module('PropData', [
+        'ngMaterial', 
+        'ui.router',
+        'angularUtils.directives.dirPagination',
+    ]);
 // angular material theme
 // config(function ($mdThemingProvider) {
 //     $mdThemingProvider.theme('default')
