@@ -1,7 +1,7 @@
 <md-content>
     <md-virtual-repeat-container>
         <section ng-repeat="loc in locations" class="listing">  
-            <img src="https://maps.googleapis.com/maps/api/streetview?size=300x200&location={{ loc.address }}
+            <img ng-src="https://maps.googleapis.com/maps/api/streetview?size=300x200&location={{ loc.address }}
 &fov=40&pitch=0
 &key=AIzaSyD3sFAc9Vhuy5HI4JvEshs0xM3rCEa5gY0" alt="placeholder">
             <div class="info">
@@ -10,6 +10,15 @@
             <p>Zoning: {{ loc.zoning }}</p>
             <p>Date of Sale: {{ loc.dateOfSale | date:'longDate' }}</p>
             </div>
+            <pagination total-items="locations.length" ng-model="currentPage" items-perpage="pageSize"></pagination>
         </section>
     </md-virtual-repeat-container>
 </md-content>
+<button ng-click="showPage('back'); pages()"> back page </button>
+<button ng-click="showPage('next')"> next page </button>
+
+<div ng-repeat="number in num">
+    <button>{{ number }}</button>
+</div>
+
+

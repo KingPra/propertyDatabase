@@ -1,5 +1,9 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-const app = angular.module('PropData', ['ngMaterial', 'ui.router']);
+const app = angular.module('PropData', [
+        'ngMaterial', 
+        'ui.router',
+        'angularUtils.directives.dirPagination',
+    ]);
 // angular material theme
 // config(function ($mdThemingProvider) {
 //     $mdThemingProvider.theme('default')
@@ -85,19 +89,99 @@ module.exports = {
     name: 'ListingsController',
     func: function ($scope, ListingsService) {
         console.log('listings controller')
-        $scope.locations = ListingsService.getLoc();
+        //$scope.locations = ListingsService.getLoc();
+        console.log(ListingsService.getLoc());
+        let listArr = ListingsService.getLoc();
 
-        $scope.data = $scope.locations.slice(0, 5);
-        $scope.getMore = () => {
-            $scope.data = $scope.locations(0, Scope.data.length + 5);
-            console.log('infinite scroll starts here');
-        }
+
+        let pages = listArr.length / 10;
+        console.log('pages: ')
+
+
+
+
+
+
+        // buttons for pages
+        $scope.num = [5, 10, 15];
+        // let number = [];
+        // console.log('number array outside of func:')
+        // console.log(number);
+        // $scope.num = number;
+        // $scope.pages = () => {
+        //     for(let i = 1; i < listArr.length / 10; i++) {
+        //         //number = i;
+        //         console.log('number');
+        //         //console.log(number);
+        //      number.push(i);       
+        //     }
+        // };
+
+        // showPage function
+        let startNum = 0;
+        let endNum = 10;
+        $scope.showPage = (operator) => {
+            console.log(operator);
+            $scope.locations = listArr.slice(startNum, endNum);
+            if (operator === 'next' && endNum < listArr.length) {
+                startNum = startNum + 10;
+                endNum = endNum + 10;
+                console.log('next button');
+                console.log(startNum, endNum);
+                console.log(listArr.length / 10);
+
+                console.log($scope.num);
+            } else
+                if (operator === 'back' && startNum > 0) {
+                    startNum = startNum - 10;
+                    endNum = endNum - 10;
+                    console.log('back button');
+                }
+            return $scope.locations;
+        };
+
+        //$scope.data = $scope.locations.slice(0, 5);
+        //console.log($scope.locations.slice(0, 5));
+
+        // test func
+        // $scope.getMore = () => {
+        //     $scope.data = $scope.locations(0, Scope.data.length + 5);
+        //     console.log('infinite scroll starts here');
+        // }
     },
 };
 },{}],5:[function(require,module,exports){
 module.exports = {
     name: 'MapController',
     func: function ($scope, MapService) {
+
+
+
+
+    let kings_map;
+    function initMap() {
+        kings_map = new google.maps.Map(document.querySelector('#map'), {
+            center: {
+                 lat: -34.397,
+                 lng: 150.644,
+            },
+            zoom: 8
+        });
+
+        let marker = new google.maps.Marker({
+            position: {
+                // lat: -34.397,
+                // lng: 150.644,
+            },
+            map: kings_map
+        });
+    };
+
+    initMap();
+    
+
+
+
         console.log('map controller');
         $scope.locate = () => {
             console.log('scope locate was clicked, activated in map controller');
@@ -143,19 +227,24 @@ module.exports = {
     name: 'ListingsService',
     func:($http) => {
         const locations = [];
-        $http.get('https://still-retreat-79338.herokuapp.com/address.json')
+        // temp get request for testing
+        $http.get('/fakerequest.json')
+        // $http.get('https://still-retreat-79338.herokuapp.com/address.json')
         .then(function (response) {
             angular.copy(response.data, locations);
-            //angular.copy(response.data.results.name, names);
+            console.log('then function');
+            console.log(response.data);
         });
         return {
             getLoc: () => {
+                console.log('getLoc function');
                 console.log(locations);
                 return locations;
-            }
+            },
         }
     },
 };
+
 },{}],8:[function(require,module,exports){
 module.exports = {
     name: 'MapService', 
@@ -164,7 +253,7 @@ module.exports = {
         return {
             locate: () => {
                 console.log('my map was clicked');
-               return mymap;
+               //return mymap;
             }
         }
     },
