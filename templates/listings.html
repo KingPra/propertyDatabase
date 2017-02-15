@@ -14,11 +14,13 @@
         </section>
     </md-virtual-repeat-container>
 </md-content>
+
+<button ng-click="checkIt()">push me</button>
 <button ng-click="showPage('back'); pages()"> back page </button>
+<div class="pageBtn" ng-repeat="number in num">
+    <button ng-click="showPage(number)">{{ number }}</button>
+</div>
 <button ng-click="showPage('next')"> next page </button>
 
-<div ng-repeat="number in num">
-    <button>{{ number }}</button>
-</div>
 
 
