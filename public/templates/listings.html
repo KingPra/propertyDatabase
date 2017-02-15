@@ -1,6 +1,6 @@
 <md-content>
     <md-virtual-repeat-container>
-        <section ng-repeat="loc in locations" class="listing">  
+        <section ng-repeat="loc in locations | limitTo: 20" class="listing">  
             <img ng-src="https://maps.googleapis.com/maps/api/streetview?size=300x200&location={{ loc.address }}
 &fov=40&pitch=0
 &key=AIzaSyD3sFAc9Vhuy5HI4JvEshs0xM3rCEa5gY0" alt="placeholder">
@@ -15,12 +15,13 @@
     </md-virtual-repeat-container>
 </md-content>
 
-<button ng-click="checkIt()">push me</button>
-<button ng-click="showPage('back'); pages()"> back page </button>
-<div class="pageBtn" ng-repeat="number in num">
-    <button ng-click="showPage(number)">{{ number }}</button>
+<div>
+    <button ng-click="showPage('back')"> back page </button>
+    <div class="pageBtn" ng-repeat="number in num">
+        <button ng-click="showPage(number)">{{ number }}</button>
+    </div>
+    <button ng-click="showPage('next')"> next page </button>
 </div>
-<button ng-click="showPage('next')"> next page </button>
 
 
 
