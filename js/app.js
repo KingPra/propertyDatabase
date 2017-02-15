@@ -1,7 +1,7 @@
 const app = angular.module('PropData', [
         'ngMaterial', 
         'ui.router',
-        'angularUtils.directives.dirPagination',
+        //'angularUtils.directives.dirPagination',
     ]);
 // angular material theme
 // config(function ($mdThemingProvider) {
@@ -43,26 +43,10 @@ const app = angular.module('PropData', [
         }
     });
 
-//Google maps
-// angular.module('appMaps', ['uiGmapgoogle-maps'])
-//     .controller('mainCtrl', function($scope) {
-//         $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
-//     });
-
     // left in from starter pack. delete if not needed
 // });
 window.addEventListener('load', function () {
     console.log('ready to rock');
 });
 
-// google maps stuff
-{/*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX_XiOTs0b_rxPCETMAwBXH9ORBYq3VCQ&callback=initMap"
-    async defer></script> 
-
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        });
-      }*/}
 

@@ -1,34 +1,27 @@
 module.exports = {
     name: 'ListingsController',
     func: function ($scope, ListingsService) {
-        console.log('listings controller')
         //$scope.locations = ListingsService.getLoc();
-        console.log(ListingsService.getLoc());
         let listArr = ListingsService.getLoc();
 
 
+        // this logs 0, timing issue?
         let pages = listArr.length / 10;
-        console.log('pages: ')
+        console.log(`pages:${pages} `)
 
-
-
-
-
-
+        // function for amount of  buttons needed
+        let numUp = [];
+        $scope.checkIt = () => {
+            let count = 0;
+            for (let i = 0; i < listArr.length / 10; i++) {
+                count++;
+                numUp.push(count);
+            }
+            return numUp
+        };
         // buttons for pages
-        $scope.num = [5, 10, 15];
-        // let number = [];
-        // console.log('number array outside of func:')
-        // console.log(number);
-        // $scope.num = number;
-        // $scope.pages = () => {
-        //     for(let i = 1; i < listArr.length / 10; i++) {
-        //         //number = i;
-        //         console.log('number');
-        //         //console.log(number);
-        //      number.push(i);       
-        //     }
-        // };
+        $scope.num = numUp;
+
 
         // showPage function
         let startNum = 0;
@@ -49,7 +42,16 @@ module.exports = {
                     startNum = startNum - 10;
                     endNum = endNum - 10;
                     console.log('back button');
-                }
+                } else
+                    if (operator === 1) {
+                        startNum = 0;
+                        endNum = 10;
+                        console.log(`one num is ${startNum}, ${endNum}`);
+                    } else {
+                        startNum = operator * 10;
+                        endNum = startNum + 10;
+                        console.log(`other buttons are pushed: ${startNum}, ${endNum}`);
+                    }
             return $scope.locations;
         };
 
@@ -61,5 +63,9 @@ module.exports = {
         //     $scope.data = $scope.locations(0, Scope.data.length + 5);
         //     console.log('infinite scroll starts here');
         // }
+
+
+
     },
+
 };
