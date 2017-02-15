@@ -2,69 +2,69 @@ module.exports = {
     name: 'ListingsController',
     func: function ($scope, ListingsService) {
         //$scope.locations = ListingsService.getLoc();
-        let listArr = ListingsService.getLoc();
+        // let listArr = ListingsService.getLoc();
+        ListingsService.getLoc().then(function (listings) {
+            $scope.locations = listings;
 
+            $scope.btnNums = () => {
+                let count = 0;
+                for (let i = 1; i < listings.length / 10; i++) {
+                    count++;
+                    btnCount.push(count);
+                }
+                return btnCount
+            };
+            $scope.btnNums();
 
-        // this logs 0, timing issue?
-        let pages = listArr.length / 10;
-        console.log(`pages:${pages} `)
+        });
 
         // function for amount of  buttons needed
-        let numUp = [];
-        $scope.checkIt = () => {
-            let count = 0;
-            for (let i = 0; i < listArr.length / 10; i++) {
-                count++;
-                numUp.push(count);
-            }
-            return numUp
-        };
+        let btnCount = [];
+
         // buttons for pages
-        $scope.num = numUp;
+        $scope.num = btnCount;
 
 
         // showPage function
-        let startNum = 0;
-        let endNum = 10;
+        // 1. Remember current page, update it whenever you change page. 
+        // 2. If operator is 'back', set startNum and endNum based on currentPage - 1
+        // 3. If operator if 'next', set startNum and endNum based on currentPage + 1
+        // 4. Else use the formula we already have.
+        let currentPage = 1;
+
         $scope.showPage = (operator) => {
-            console.log(operator);
-            $scope.locations = listArr.slice(startNum, endNum);
-            if (operator === 'next' && endNum < listArr.length) {
-                startNum = startNum + 10;
-                endNum = endNum + 10;
-                console.log('next button');
-                console.log(startNum, endNum);
-                console.log(listArr.length / 10);
+            let startNum = (operator - 1) * 10;
+            let endNum = operator * 10;
+            console.log(`showPage func. Button ${operator} was pressed: ${startNum}, ${endNum}`);
 
-                console.log($scope.num);
-            } else
-                if (operator === 'back' && startNum > 0) {
-                    startNum = startNum - 10;
-                    endNum = endNum - 10;
-                    console.log('back button');
-                } else
-                    if (operator === 1) {
-                        startNum = 0;
-                        endNum = 10;
-                        console.log(`one num is ${startNum}, ${endNum}`);
-                    } else {
-                        startNum = operator * 10;
-                        endNum = startNum + 10;
-                        console.log(`other buttons are pushed: ${startNum}, ${endNum}`);
-                    }
-            return $scope.locations;
+           // $scope.locations = listings.slice(startNum, endNum);
+            // if (operator === 'next' && endNum < listArr.length) {
+            //     startNum = startNum + 10;
+            //     endNum = endNum + 10;
+            //     console.log($scope.num);
+            // } else
+            //     if (operator === 'back' && startNum > 0) {
+            //         startNum = startNum - 10;
+            //         endNum = endNum - 10;
+            //         console.log('back button');
+            //     } else
+            //         if (operator === 'back' && startNum === 0 || operator === 'next' && endNum >= listArr.length) {
+            //             startNum = startNum;
+            //             endNum = endNum;
+            //             console.log(`back button value is: ${operator}. Values: ${startNum}, ${endNum}`);
+            //         }
+            //         else
+            //             if (operator === 1) {
+            //                 startNum = 0;
+            //                 endNum = 10;
+            //                 console.log(`button ${operator} was pushed: ${startNum}, ${endNum}`);
+            //             } else {
+            //                 startNum = operator * 10;
+            //                 endNum = startNum + 10;
+            //                 console.log(` button ${operator} pushed: ${startNum}, ${endNum}`);
+            //             }
+            // return $scope.locations;
         };
-
-        //$scope.data = $scope.locations.slice(0, 5);
-        //console.log($scope.locations.slice(0, 5));
-
-        // test func
-        // $scope.getMore = () => {
-        //     $scope.data = $scope.locations(0, Scope.data.length + 5);
-        //     console.log('infinite scroll starts here');
-        // }
-
-
 
     },
 
