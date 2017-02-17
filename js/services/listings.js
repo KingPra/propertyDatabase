@@ -12,15 +12,15 @@ module.exports = {
         // });
         return {
             getLoc: () => {
-                // console.log('getLoc function');
+                console.log('getLoc function');
                 // console.log(locations);
                 // return locations;
-                return $http.get('/fakerequest.json')
-                    // $http.get('https://still-retreat-79338.herokuapp.com/address.json')
+                //return $http.get('/fakerequest.json')
+                return $http.get('https://still-retreat-79338.herokuapp.com/address.json')
                     .then(function (response) {
                         // angular.copy(response.data, locations);
-                        // console.log('then function');
-                        // console.log(response.data);
+                        console.log('then function');
+                        console.log(response.data);
                         return response.data;
                     });
             },

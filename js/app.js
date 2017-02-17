@@ -1,7 +1,9 @@
 const app = angular.module('PropData', [
-        'ngMaterial', 
-        'ui.router',
-        //'angularUtils.directives.dirPagination',
+        'ui.router',        
+        'ngMaterial',
+        'ngAnimate',
+        'ngAria', 
+        'angularUtils.directives.dirPagination',
     ]);
 // angular material theme
 // config(function ($mdThemingProvider) {
@@ -50,3 +52,12 @@ window.addEventListener('load', function () {
 });
 
 
+
+
+// might need for button pagination
+
+// function OtherController($scope) {
+//   $scope.pageChangeHandler = function(num) {
+//     console.log('going to page ' + num);
+//   };
+// }
