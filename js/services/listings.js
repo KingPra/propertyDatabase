@@ -20,7 +20,7 @@ module.exports = {
                     .then(function (response) {
                         // angular.copy(response.data, locations);
                         console.log('then function');
-                        console.log(response.data);
+                        //console.log(response.data);
                         return response.data;
                     });
             },
