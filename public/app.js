@@ -1,8 +1,10 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 const app = angular.module('PropData', [
-        'ngMaterial', 
-        'ui.router',
-        //'angularUtils.directives.dirPagination',
+        'ui.router',        
+        'ngMaterial',
+        'ngAnimate',
+        'ngAria', 
+        'angularUtils.directives.dirPagination',
     ]);
 // angular material theme
 // config(function ($mdThemingProvider) {
@@ -52,6 +54,14 @@ window.addEventListener('load', function () {
 
 
 
+
+// might need for button pagination
+
+// function OtherController($scope) {
+//   $scope.pageChangeHandler = function(num) {
+//     console.log('going to page ' + num);
+//   };
+// }
 },{"./components/listings":2,"./components/map":3,"./controllers/listings":4,"./controllers/map":5,"./routers":6,"./services/listings":7,"./services/map":8}],2:[function(require,module,exports){
 module.exports = {
     name: 'listings',
@@ -76,37 +86,50 @@ module.exports = {
         // let listArr = ListingsService.getLoc();
         ListingsService.getLoc().then(function (listings) {
             $scope.locations = listings;
+            
+            // function for number of buttons
+            // $scope.btnNums = () => {
+            //     let count = 0;
+            //     for (let i = 1; i < listings.length / 10; i++) {
+            //         console.log(listings.length);
+            //         count++;
+            //         btnCount.push(count);
+            //         console.log(btnCount);
+            //     }
+            //     return btnCount;
+                
+            // };
 
-            $scope.btnNums = () => {
-                let count = 0;
-                for (let i = 1; i < listings.length / 10; i++) {
-                    count++;
-                    btnCount.push(count);
-                }
-                return btnCount
-            };
-            $scope.btnNums();
+            // calling btnNums function for buttons to show on page load
+            // $scope.btnNums();
+
+            // $scope.showPage = (operator) => {
+            // let startNum = (operator - 1) * 10;
+            // let endNum = operator * 10;
+            //return startNum;
+        //};
 
         });
 
         // function for amount of  buttons needed
-        let btnCount = [];
+         //let btnCount = [];
+        // console.log(`btnCount array: ${btnCount}`);
 
         // buttons for pages
-        $scope.num = btnCount;
-
+        // $scope.num = btnCount;
+        // console.log(`btnCount: ${btnCount}`);
 
         // showPage function
         // 1. Remember current page, update it whenever you change page. 
         // 2. If operator is 'back', set startNum and endNum based on currentPage - 1
         // 3. If operator if 'next', set startNum and endNum based on currentPage + 1
         // 4. Else use the formula we already have.
-        let currentPage = 1;
+        //let currentPage = 1;
 
-        $scope.showPage = (operator) => {
-            let startNum = (operator - 1) * 10;
-            let endNum = operator * 10;
-            console.log(`showPage func. Button ${operator} was pressed: ${startNum}, ${endNum}`);
+        // $scope.showPage = (operator) => {
+        //     let startNum = (operator - 1) * 10;
+        //     let endNum = operator * 10;
+        //     console.log(`showPage func. Button ${operator} was pressed: ${startNum}, ${endNum}`);
 
            // $scope.locations = listings.slice(startNum, endNum);
             // if (operator === 'next' && endNum < listArr.length) {
@@ -135,7 +158,7 @@ module.exports = {
             //                 console.log(` button ${operator} pushed: ${startNum}, ${endNum}`);
             //             }
             // return $scope.locations;
-        };
+        //};
 
     },
 
@@ -228,15 +251,15 @@ module.exports = {
         // });
         return {
             getLoc: () => {
-                // console.log('getLoc function');
+                console.log('getLoc function');
                 // console.log(locations);
                 // return locations;
-                return $http.get('/fakerequest.json')
-                    // $http.get('https://still-retreat-79338.herokuapp.com/address.json')
+                //return $http.get('/fakerequest.json')
+                return $http.get('https://still-retreat-79338.herokuapp.com/address.json')
                     .then(function (response) {
                         // angular.copy(response.data, locations);
-                        // console.log('then function');
-                        // console.log(response.data);
+                        console.log('then function');
+                        console.log(response.data);
                         return response.data;
                     });
             },
